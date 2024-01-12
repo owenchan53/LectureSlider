@@ -1,5 +1,7 @@
 import cv2 as cv
 import time
+import os
+from PIL import Image
 
 index = 1
 
@@ -36,7 +38,7 @@ while True:
     # Check if the minimum delay of 5 seconds has passed since the last screenshot
     current_time = time.time()
     if current_time - last_screenshot_time >= 5:
-        if num_changed_pixels > 1000:  # Adjust this threshold as needed
+        if num_changed_pixels > 1000:
             # Significant change detected - take a screenshot
             screenshot = frame.copy()
             cv.imwrite(f'slide{index}.png', screenshot)
@@ -48,4 +50,14 @@ while True:
 
 # Release the video capture and close OpenCV windows
 video_capture.release()
-cv.destroyAllWindows()
+
+screenshots = [f'slide{i}.png' for i in range(1, index)]
+
+if screenshots:
+    first = Image.open(screenshots[0])
+    first = first.convert('RGB')
+    others = [Image.open(file).convert('RGB') for file in screenshots[1:]]
+    first.save('slides.pdf', save_all=True, append_images=others)
+
+for s in screenshots:
+    os.remove(s)
