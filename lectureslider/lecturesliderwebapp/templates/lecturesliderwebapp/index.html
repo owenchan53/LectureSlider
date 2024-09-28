@@ -1,0 +1,35 @@
+<html>
+<head>
+    {% load static %}
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <meta charset="UTF-8">
+    <title>LectureSlider</title>
+</head>
+
+<body>
+    <h1>Welcome to LectureSlider</h1>
+    <form enctype="multipart/form-data" method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Upload"/>
+    </form>
+
+    <br><br>
+    {% if video %}
+    <video width="400" controls>
+        <source src="{{ video.vid_file.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <form action="{% url 'convert' vid_id=video.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Convert</button>
+    </form>
+    {% endif %}
+    <br><br>    
+</body>
+<script>"undefined"=== typeof _trfq || (window._trfq = []);"undefined"=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpbh-mt'},{'server':'p3plmcpnl487010'},{'dcenter':'p3'},{'cp_id':'8437534'},{'cp_cache':''},{'cp_cl':'8'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web hosting support.</script><script src='https://img1.wsimg.com/traffic-assets/js/tccl.min.js'></script></html>
